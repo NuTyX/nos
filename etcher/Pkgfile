@@ -1,0 +1,26 @@
+description="Flash OS images to SD cards & USB drives, safely and easily."
+url="https://etcher.io/"
+
+license="Apache-2.0"
+
+packager="tnut <tnut@nutyx.org>"
+contributors="Great-OS Team, Spiky"
+
+name=etcher
+version=2.1.6
+
+run=(lbzip2)
+
+source=(https://github.com/balena-io/etcher/releases/download/v$version/balena-etcher_${version}_amd64.deb
+        etcher)
+
+build() {
+  mkdir -p output
+  tar -xvf data.tar.zst -C output
+}
+
+package() {
+  cp -r output/* $PKG
+  install -d $PKG/usr/bin
+  install -Dm755 etcher $PKG/usr/bin/etcher
+}
